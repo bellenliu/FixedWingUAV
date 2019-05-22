@@ -9,17 +9,17 @@
 % output is:
 %   dubinspath  - a matlab structure with the following fields
 %       dubinspath.ps   - the start position in re^3
-%       dubinspath.chis - the start course angle
+%       dubinspath.chis - the start course angle  开始角度
 %       dubinspath.pe   - the end position in re^3
 %       dubinspath.chie - the end course angle
-%       dubinspath.R    - turn radius
+%       dubinspath.R    - turn radius转弯半径
 %       dubinspath.L    - length of the Dubins path
-%       dubinspath.cs   - center of the start circle
-%       dubinspath.lams - direction of the start circle
+%       dubinspath.cs   - center of the start circle起始圆的中心
+%       dubinspath.lams - direction of the start circle起始圆的方向
 %       dubinspath.ce   - center of the end circle
 %       dubinspath.lame - direction of the end circle
-%       dubinspath.w1   - vector in re^3 defining half plane H1
-%       dubinspath.q1   - unit vector in re^3 along straight line path
+%       dubinspath.w1   - vector in re^3 defining half plane H1re^3 中的向量定义半平面 H1
+%       dubinspath.q1   - unit vector in re^3 along straight line path沿直线路径 re^3 的单位向量
 %       dubinspath.w2   - vector in re^3 defining position of half plane H2
 %       dubinspath.w3   - vector in re^3 defining position of half plane H3
 %       dubinspath.q3   - unit vector defining direction of half plane H3
