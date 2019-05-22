@@ -8,18 +8,18 @@
 
 function path_out=planRRTDubins(wpp_start, wpp_end, R, map)
 
-    % standard length of path segments
-    segmentLength = 3*R;
+    % standard length of path segments路径段的标准长度
+    segmentLength = 3*R;%R为最小转弯半径
 
-    % desired down position is down position of end node
-    pd = wpp_end(3);
-    chi_start = wpp_start(4);
+    % desired down position is down position of end node所需的向下位置是结束节点的向下位置
+    pd = wpp_end(3);%初始向下位置 (负高度)
+    chi_start = wpp_start(4);%x轴速度
     chi_end = wpp_end(4);
     
-    % specify start and end nodes from wpp_start and wpp_end
+    % specify start and end nodes from wpp_start and wpp_end从 wpp _ start 和 wpp _ end 指定开始和结束节点
     start_node = [wpp_start(1), wpp_start(2), pd, chi_start, 0, 0, 0];
     end_node = [wpp_end(1), wpp_end(2), pd, chi_end, 0, 0, 0];
-    % format:  [N, E, D, chi, cost, parent_idx, flag_connect_to_goal]
+    % format:  [N, E, D, chi, cost航程, parent_idx父节点, flag_connect_to_goal目标节点]
 
     % establish tree starting with the start node
     tree = start_node;
@@ -44,8 +44,9 @@ function path_out=planRRTDubins(wpp_start, wpp_end, R, map)
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% generateRandomNode
+%% generateRandomNode生成随机节点
 %%   create a random node (initialize)
+% 创建一个随机节点 (初始化)
 function node=generateRandomNode(map,pd,chi)
 
     % randomly pick configuration
@@ -59,13 +60,13 @@ function node=generateRandomNode(map,pd,chi)
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% collision
+%% collision碰撞
 %%   check to see if a node is in collsion with obstacles
 function collision_flag = collision(start_node, end_node, map, R, pd)
 
     collision_flag = 0;
-    dubinspath = dubinsParameters(start_node, end_node, R);
-    [X,Y,Z] = pointsAlongDubinsPath(dubinspath, 0.1, pd);
+    dubinspath = dubinsParameters(start_node, end_node, R);%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%生成dubins路径
+    [X,Y,Z] = pointsAlongDubinsPath(dubinspath, 0.1, pd);%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%生成dubins路径
 %     [X,Y,Z] = pointsAlongPath(start_node, end_node, 0.1);
 
     for i = 1:length(X),
@@ -165,7 +166,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% downAtNE
-%%   find the world down coordinate at a specified (n,e) location
+%%   find the world down coordinate at a specified (n,e) location在指定的 (n, e) 位置查找世界向下坐标
 function down = downAtNE(map, n, e)
 
       [d_n,idx_n] = min(abs(n - map.buildings_n));
@@ -252,7 +253,7 @@ function path = findMinimumPath(tree,end_node)
     
 end
   
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%----------------路径平滑  防止碰撞
 %% smoothPath
 %%   smooth the waypoint path 
 function newPath = smoothPath(path,map, R, pd)
@@ -327,7 +328,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% buildingVertFace(x,y,width,height)
-%%   define patches for a building located at (x,y)
+%%   define patches for a building located at (x,y)为位于 (x, y) 的建筑物定义修补程序
 function [V,F,patchcolors] = buildingVertFace(n,e,width,height)
  
   % vertices of the building
