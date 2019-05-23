@@ -1,11 +1,11 @@
 %% planRRT
 %%  - basic coverage algorithm
-%%  
+%%  -基本覆盖算法
 %% Last Modified - 11/15/2010 - R. Beard
 
 function path=planCoverRRTDubins(wpp_start, R, map)
     
-    % desired down position is down position of start node
+    % desired down position is down position of start node所需的向下位置是启动节点的向下位置
     pd = wpp_start(3);
     
     % specify start node from wpp_start 
@@ -14,17 +14,17 @@ function path=planCoverRRTDubins(wpp_start, R, map)
  
  
     % return map
-    returnMapSize = 30;  % this is a critical parameter!
+    returnMapSize = 30;  % this is a critical parameter!这是一个关键的参数!
     return_map = 50*ones(returnMapSize,returnMapSize)+ rand(returnMapSize,returnMapSize);
     plotReturnMap(return_map), %pause
 
-    % construct search path by doing N search cycles
+    % construct search path by doing N search cycles通过执行 N 搜索周期来构造搜索路径
     SEARCH_CYCLES = 100;  % number of search cycles
        
     % look ahead tree parameters
-    L = 2*R+1;  % segment Length
-    vartheta = pi/4; % search angle
-    depth = 5; % depth of look ahead tree
+    L = 2*R+1;  % segment Length 线段长度
+    vartheta = pi/4; % search angle搜索角度
+    depth = 5; % depth of look ahead tree向前看树的深度
     
     % initialize path and tree
     path = start_node;
@@ -132,7 +132,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% findReturn
-%%   compute the return value at a particular location
+%%   compute the return value at a particular location计算特定位置的返回值
 function return_value = findReturn(pn,pe,return_map,map);
 
   [pn_max,pe_max] = size(return_map);
